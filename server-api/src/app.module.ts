@@ -15,7 +15,7 @@ import { TasksModule } from './app/tasks/tasks.module';
         username: configService.get('DB_USERNAME', 'root'),
         password: configService.get('DB_PASSWORD', 'root'),
         database: configService.get('DB_NAME', 'tarefas-db'),
-        entities: [],
+        entities: [__dirname + '/**/*.entity{.js,.ts}'],
         synchronize: true,
       }),
     }),
