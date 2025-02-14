@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { TasksModule } from './app/tasks/tasks.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         synchronize: true,
       }),
     }),
+    TasksModule,
   ],
   controllers: [],
   providers: []
