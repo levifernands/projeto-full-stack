@@ -32,7 +32,23 @@ export class TasksService {
     }
   }
 
-  async updateTaskById() { }
+  async updateTaskById(id: string, taskData): Promise<TaskEntity> {
+    try {
+      const task = await this.taskRepository.findOneOrFail({ where: { id } });
+
+      if (!task) {
+        throw new NotFoundException(`Tarefa com ID ${id} não encontrada.`);
+
+      }
+
+      this.taskRepository.merge(task, taskData);
+      return await this.taskRepository.save(task);
+
+    } catch (error) {
+      throw new InternalServerErrorException('Erro ao atualizar a tarefa.', error);
+    }
+  }
+
 
   async deleteTaskById() { }
 }
