@@ -50,5 +50,13 @@ export class TasksService {
   }
 
 
-  async deleteTaskById() { }
+  async deleteTaskById(id: string) {
+    try {
+      await this.taskRepository.findOneOrFail({ where: { id } });
+
+      await this.taskRepository.softDelete(id);
+    } catch (error) {
+      throw new InternalServerErrorException('Erro ao deletar a tarefa.', error);
+    }
+  }
 }
