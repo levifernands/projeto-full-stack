@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TaskEntity } from './entity/task.entity';
 import { Repository } from 'typeorm';
@@ -23,7 +23,14 @@ export class TasksService {
     }
   }
 
-  async createTask() { }
+  async createTask(taskData): Promise<TaskEntity[]> {
+    try {
+      const newTask = this.taskRepository.create(taskData);
+      return await this.taskRepository.save(newTask);
+    } catch (error) {
+      throw new InternalServerErrorException('Erro ao criar a tarefa.', error);
+    }
+  }
 
   async updateTaskById() { }
 
