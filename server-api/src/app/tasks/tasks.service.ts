@@ -18,7 +18,7 @@ export class TasksService {
     return await this.taskRepository.find({
       where: { userId },
       skip: paginationDTO.skip,
-      take: paginationDTO.limit
+      take: paginationDTO.limit ?? DEFAULT_PAGE_SIZE
     },
     );
   }
