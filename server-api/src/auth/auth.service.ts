@@ -1,14 +1,20 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
 import * as bcrypt from 'bcryptjs';
 import { UserEntity } from 'src/app/users/entity/user.entity';
 import { UsersService } from 'src/app/users/users.service';
 import { JwtService } from '@nestjs/jwt';
+import { CreateUserDto } from 'src/app/users/dto/create-user.dto';
 
 
 @Injectable()
 export class AuthService {
   constructor(private readonly userService: UsersService, private jwtService: JwtService) { }
 
+  async register(createUserDto: CreateUserDto): Promise<UserEntity> {
+    const user = await this.userService.createUser(createUserDto);
+
+    return user;
+  }
 
 
   async login(user) {

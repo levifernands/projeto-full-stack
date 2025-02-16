@@ -6,15 +6,16 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
-@UseGuards(AuthGuard('jwt'))
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get()
   async getAllUsers(): Promise<UserEntity[]> {
     return this.usersService.findAllUsers();
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get(':id')
   async getUserById(@Param('id', new ParseUUIDPipe) id: string): Promise<UserEntity> {
     return await this.usersService.findOneOrFail({ id });
@@ -26,6 +27,7 @@ export class UsersController {
     return await this.usersService.createUser(body);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Put(':id')
   async updateUser(
     @Param('id', new ParseUUIDPipe) id: string,
@@ -34,6 +36,7 @@ export class UsersController {
     return await this.usersService.updateUser(id, body);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   async deleteUser(@Param('id') id: string) {
