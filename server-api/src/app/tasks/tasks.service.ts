@@ -4,6 +4,8 @@ import { TaskEntity } from './entity/task.entity';
 import { Repository } from 'typeorm';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import { PaginationDTO } from './dto/pagination.dto';
+import { DEFAULT_PAGE_SIZE } from './utils/constants.utils';
 
 @Injectable()
 export class TasksService {
