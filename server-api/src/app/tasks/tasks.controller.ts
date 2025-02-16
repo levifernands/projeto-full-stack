@@ -14,7 +14,6 @@ export class TasksController {
 
   @Get()
   async getAllTasks(@Query() paginationDTO: PaginationDTO, @Req() req): Promise<TaskEntity[]> {
-    console.log('User ID:', req.user.id);
     return await this.tasksService.findAllTasks(req.user.id, paginationDTO);
 
   }
