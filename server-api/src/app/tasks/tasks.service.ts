@@ -4,6 +4,7 @@ import { TaskEntity } from './entity/task.entity';
 import { Repository } from 'typeorm';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+import { PaginationDTO } from './dto/pagination.dto';
 
 @Injectable()
 export class TasksService {
@@ -12,8 +13,11 @@ export class TasksService {
     private readonly taskRepository: Repository<TaskEntity>,
   ) { }
 
-  async findAllTasks(): Promise<TaskEntity[]> {
-    return await this.taskRepository.find();
+  async findAllTasks(paginationDTO: PaginationDTO): Promise<TaskEntity[]> {
+    return await this.taskRepository.find({
+      skip: paginationDTO.skip,
+      take: paginationDTO.limit
+    });
   }
 
   async findTaskById(id: string): Promise<TaskEntity> {
