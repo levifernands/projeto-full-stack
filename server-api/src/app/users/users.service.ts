@@ -31,15 +31,21 @@ export class UsersService {
     try {
       const user = await this.findOneOrFail({ id });
 
-      if (!user) {
-        throw new NotFoundException(`Usuário com ID ${id} não encontrado.`);
-      }
-
       this.userRepository.merge(user, userData);
       return await this.userRepository.save(user);
 
     } catch (error) {
       throw new InternalServerErrorException('Erro ao atualizar o usuário.', error);
+    }
+  }
+
+  async deleteUser(id: string) {
+    try {
+      await this.userRepository.findOneOrFail({ where: { id } });
+
+      await this.userRepository.softDelete({ id });
+    } catch (error) {
+      throw new InternalServerErrorException(`Erro ao deletar o usuário: ${error.message}`);
     }
   }
 }
