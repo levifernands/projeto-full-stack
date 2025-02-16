@@ -1,5 +1,6 @@
 import { IsEmail, IsNotEmpty, IsString, Matches } from 'class-validator';
 import { PasswordValidationHelper } from '../helpers/passwordValidation.helper';
+import { CustomMessagesHelper } from '../helpers/customMessages.helper';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -16,6 +17,8 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty()
-  @Matches(PasswordValidationHelper.password)
+  @Matches(PasswordValidationHelper.password, {
+    message: CustomMessagesHelper.PASSWORD_RULE,
+  })
   password: string;
 }
