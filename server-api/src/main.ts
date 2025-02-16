@@ -9,7 +9,9 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('App Gestão de Tarefas')
     .setVersion('0.1.1')
+    .addBearerAuth()
     .build();
+
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, documentFactory);
   app.useGlobalPipes(new ValidationPipe());
