@@ -20,7 +20,7 @@ export class TasksController {
 
   @Get(':id')
   async getTaskById(@Req() req, @Param('id', new ParseUUIDPipe) id: string): Promise<TaskEntity> {
-    return await this.tasksService.findTaskById(req.user.id, id);
+    return await this.tasksService.findTaskById(id, req.user.id);
   }
 
   @Post()
