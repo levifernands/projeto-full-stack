@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { TaskEntity } from './entity/task.entity';
+import { CreateTaskDto } from './dto/create-task.dto';
 
 @Controller('tasks')
 export class TasksController {
@@ -18,7 +19,7 @@ export class TasksController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  async createTask(@Body() body): Promise<TaskEntity[]> {
+  async createTask(@Body() body: CreateTaskDto): Promise<TaskEntity> {
     return await this.tasksService.createTask(body);
   }
 
