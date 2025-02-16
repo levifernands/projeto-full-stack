@@ -4,18 +4,19 @@ import { UserEntity } from './entity/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard)
   @Get()
   async getAllUsers(): Promise<UserEntity[]> {
     return this.usersService.findAllUsers();
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   async getUserById(@Param('id', new ParseUUIDPipe) id: string): Promise<UserEntity> {
     return await this.usersService.findOneOrFail({ id });
@@ -27,7 +28,7 @@ export class UsersController {
     return await this.usersService.createUser(body);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard)
   @Put(':id')
   async updateUser(
     @Param('id', new ParseUUIDPipe) id: string,
@@ -36,7 +37,7 @@ export class UsersController {
     return await this.usersService.updateUser(id, body);
   }
 
-  @UseGuards(AuthGuard('jwt'))
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   async deleteUser(@Param('id') id: string) {

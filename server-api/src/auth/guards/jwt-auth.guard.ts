@@ -7,7 +7,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     return super.canActivate(context);
   }
 
-  handleRequest(error, user) {
+  handleRequest(error, user, info) {
     if (error || !user) {
       throw new UnauthorizedException('Token inválido ou ausente');
     }
