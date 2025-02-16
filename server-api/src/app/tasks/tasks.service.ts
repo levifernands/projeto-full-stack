@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { PaginationDTO } from './dto/pagination.dto';
+import { DEFAULT_PAGE_SIZE } from './utils/constants.utils';
 
 @Injectable()
 export class TasksService {
@@ -16,7 +17,7 @@ export class TasksService {
   async findAllTasks(paginationDTO: PaginationDTO): Promise<TaskEntity[]> {
     return await this.taskRepository.find({
       skip: paginationDTO.skip,
-      take: paginationDTO.limit
+      take: paginationDTO.limit ?? DEFAULT_PAGE_SIZE
     });
   }
 
