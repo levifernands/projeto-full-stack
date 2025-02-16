@@ -5,5 +5,9 @@ export class PaginationDTO {
   @IsPositive()
   @IsOptional()
   skip: number;
+
+  @IsNumber()
+  @IsPositive()
+  @IsOptional()
   limit: number;
 }
