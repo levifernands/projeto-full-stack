@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, ParseUUIDPipe, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { TaskEntity } from './entity/task.entity';
 
@@ -20,6 +20,14 @@ export class TasksController {
   @HttpCode(HttpStatus.CREATED)
   async createTask(@Body() body): Promise<TaskEntity[]> {
     return await this.tasksService.createTask(body);
+  }
+
+  @Put(':id')
+  async updateTask(
+    @Param('id', new ParseUUIDPipe) id: string,
+    @Body() body,
+  ): Promise<TaskEntity> {
+    return await this.tasksService.updateTaskById(id, body);
   }
 
 
