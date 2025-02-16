@@ -14,8 +14,13 @@ export class TasksService {
     private readonly taskRepository: Repository<TaskEntity>,
   ) { }
 
-  async findAllTasks(userId: any,): Promise<TaskEntity[]> {
-    return await this.taskRepository.find({ where: { userId } });
+  async findAllTasks(userId: any, paginationDTO: PaginationDTO,): Promise<TaskEntity[]> {
+    return await this.taskRepository.find({
+      where: { userId },
+      skip: paginationDTO.page,
+      take: paginationDTO.limit ?? DEFAULT_PAGE_SIZE
+    },
+    );
   }
 
   async findTaskById(id: string, userId: string): Promise<TaskEntity> {
