@@ -12,31 +12,31 @@ export class TasksService {
     private readonly taskRepository: Repository<TaskEntity>,
   ) { }
 
-  async findAllTasks(): Promise<TaskEntity[]> {
-    return await this.taskRepository.find();
+  async findAllTasks(userId: any,): Promise<TaskEntity[]> {
+    return await this.taskRepository.find({ where: { userId } });
   }
 
-  async findTaskById(id: string): Promise<TaskEntity> {
+  async findTaskById(id: string, userId: string): Promise<TaskEntity> {
     try {
-      return await this.taskRepository.findOneOrFail({ where: { id } });
+      return await this.taskRepository.findOneOrFail({ where: { id, userId } });
     } catch (error) {
       console.error('Erro ao procurar tarefa por ID:', error);
       throw new NotFoundException(`Tarefa com ID ${id} não encontrada.`);
     }
   }
 
-  async createTask(taskData: CreateTaskDto): Promise<TaskEntity> {
+  async createTask(userId: string, taskData: CreateTaskDto): Promise<TaskEntity> {
     try {
-      const newTask = this.taskRepository.create(taskData);
+      const newTask = this.taskRepository.create({ ...taskData, userId });
       return await this.taskRepository.save(newTask);
     } catch (error) {
       throw new InternalServerErrorException('Erro ao criar a tarefa.', error);
     }
   }
 
-  async updateTaskById(id: string, taskData: UpdateTaskDto): Promise<TaskEntity> {
+  async updateTaskById(userId: string, id: string, taskData: UpdateTaskDto): Promise<TaskEntity> {
     try {
-      const task = await this.taskRepository.findOneOrFail({ where: { id } });
+      const task = await this.taskRepository.findOneOrFail({ where: { id, userId } });
 
       if (!task) {
         throw new NotFoundException(`Tarefa com ID ${id} não encontrada.`);
@@ -52,9 +52,9 @@ export class TasksService {
   }
 
 
-  async deleteTaskById(id: string) {
+  async deleteTaskById(userId: string, id: string) {
     try {
-      await this.taskRepository.findOneOrFail({ where: { id } });
+      await this.taskRepository.findOneOrFail({ where: { id, userId } });
 
       await this.taskRepository.softDelete(id);
     } catch (error) {

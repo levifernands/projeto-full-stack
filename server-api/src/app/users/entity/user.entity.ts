@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, CreateDateColumn, UpdateDateColumn, DeleteDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, CreateDateColumn, UpdateDateColumn, DeleteDateColumn, OneToMany } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
+import { TaskEntity } from 'src/app/tasks/entity/task.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -36,4 +37,7 @@ export class UserEntity {
   async validatePassword(password: string): Promise<boolean> {
     return await bcrypt.compare(password, this.password);
   }
+
+  @OneToMany(() => TaskEntity, (task) => task.user)
+  tasks: TaskEntity[];
 }
