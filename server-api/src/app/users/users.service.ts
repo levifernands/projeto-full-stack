@@ -1,8 +1,9 @@
-import { Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './entity/user.entity';
 import { FindOneOptions, FindOptionsWhere, Repository } from 'typeorm';
 import { updateUserDto } from './dto/update-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -13,18 +14,35 @@ export class UsersService {
 
   async findAllUsers(): Promise<UserEntity[]> {
     return await this.userRepository.find({
-      select: ['id', 'firstName', 'lastName', 'email']
-    })
+      select: ['id', 'firstName', 'lastName', 'email'],
+    });
   }
 
-  async findOneOrFail(conditions: FindOptionsWhere<UserEntity>, options?: FindOneOptions<UserEntity>) {
+  async findOneOrFail(
+    conditions: FindOptionsWhere<UserEntity>,
+    options?: FindOneOptions<UserEntity>,
+  ) {
     try {
-      return await this.userRepository.findOneOrFail({ where: conditions, ...options });
+      return await this.userRepository.findOneOrFail({
+        where: conditions,
+        ...options,
+      });
     } catch (error) {
       if (error.name === 'EntityNotFound') {
-        throw new NotFoundException(`Usuário não encontrado nessas condições: ${JSON.stringify(conditions)}. Erro: ${error.message}`);
+        throw new NotFoundException(
+          `Usuário não encontrado nessas condições: ${JSON.stringify(conditions)}. Erro: ${error.message}`,
+        );
       }
       throw new NotFoundException(`Erro ao buscar usuário: ${error.message}`);
+    }
+  }
+
+  async createUser(userData: CreateUserDto): Promise<UserEntity> {
+    try {
+      const newUser = this.userRepository.create(userData);
+      return await this.userRepository.save(newUser);
+    } catch (error) {
+      throw new InternalServerErrorException('Erro ao criar o usuário.', error);
     }
   }
 
@@ -34,9 +52,11 @@ export class UsersService {
 
       this.userRepository.merge(user, userData);
       return await this.userRepository.save(user);
-
     } catch (error) {
-      throw new InternalServerErrorException('Erro ao atualizar o usuário.', error);
+      throw new InternalServerErrorException(
+        'Erro ao atualizar o usuário.',
+        error,
+      );
     }
   }
 
@@ -46,7 +66,9 @@ export class UsersService {
 
       await this.userRepository.softDelete({ id });
     } catch (error) {
-      throw new InternalServerErrorException(`Erro ao deletar o usuário: ${error.message}`);
+      throw new InternalServerErrorException(
+        `Erro ao deletar o usuário: ${error.message}`,
+      );
     }
   }
 }
