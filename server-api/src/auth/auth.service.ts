@@ -9,7 +9,16 @@ import { JwtService } from '@nestjs/jwt';
 export class AuthService {
   constructor(private readonly userService: UsersService, private jwtService: JwtService) { }
 
-  async login(email: string, password: string) {
+
+
+  async login(user) {
+    const payload = { sub: user.id, email: user.email }
+    return {
+      token: this.jwtService.sign(payload),
+    };
+  }
+
+  async validateUser(email: string, password: string) {
     let user: UserEntity;
 
     try {
@@ -24,6 +33,7 @@ export class AuthService {
         `Senha inválida para o usuário de email: ${email}`,
       );
     }
+    return user;
 
   }
 }
