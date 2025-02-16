@@ -3,7 +3,9 @@ import { TasksService } from './tasks.service';
 import { TaskEntity } from './entity/task.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
+
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
+import { PaginationDTO } from './dto/pagination.dto';
 
 @Controller('tasks')
 @UseGuards(JwtAuthGuard)
@@ -13,6 +15,7 @@ export class TasksController {
   @Get()
   async getAllTasks(@Req() req): Promise<TaskEntity[]> {
     return await this.tasksService.findAllTasks(req.user.id);
+
   }
 
   @Get(':id')
