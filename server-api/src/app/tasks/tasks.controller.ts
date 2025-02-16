@@ -6,8 +6,11 @@ import { UpdateTaskDto } from './dto/update-task.dto';
 
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { PaginationDTO } from './dto/pagination.dto';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 @Controller('tasks')
+@ApiTags('tasks')
+@ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 export class TasksController {
   constructor(private readonly tasksService: TasksService) { }
