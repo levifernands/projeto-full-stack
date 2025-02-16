@@ -14,7 +14,7 @@ export class TasksService {
     private readonly taskRepository: Repository<TaskEntity>,
   ) { }
 
-  async findAllTasks(paginationDTO: PaginationDTO, userId: any,): Promise<TaskEntity[]> {
+  async findAllTasks(userId: any, paginationDTO: PaginationDTO,): Promise<TaskEntity[]> {
     return await this.taskRepository.find({
       where: { userId },
       skip: paginationDTO.skip,
