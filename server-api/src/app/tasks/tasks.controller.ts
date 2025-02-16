@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseUUIDPipe, Post, Put } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { TaskEntity } from './entity/task.entity';
 
@@ -28,6 +28,12 @@ export class TasksController {
     @Body() body,
   ): Promise<TaskEntity> {
     return await this.tasksService.updateTaskById(id, body);
+  }
+
+  @Delete(':id')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async deleteTask(@Param('id') id: string) {
+    await this.tasksService.deleteTaskById(id);
   }
 
 
