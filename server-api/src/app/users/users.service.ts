@@ -2,7 +2,7 @@ import { ConflictException, Injectable, InternalServerErrorException, NotFoundEx
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from './entity/user.entity';
 import { FindOneOptions, FindOptionsWhere, Repository } from 'typeorm';
-import { updateUserDto } from './dto/update-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 
 @Injectable()
@@ -46,7 +46,7 @@ export class UsersService {
     }
   }
 
-  async updateUser(id: string, userData: updateUserDto): Promise<UserEntity> {
+  async updateUser(id: string, userData: UpdateUserDto): Promise<UserEntity> {
     try {
       const user = await this.findOneOrFail({ id });
 
