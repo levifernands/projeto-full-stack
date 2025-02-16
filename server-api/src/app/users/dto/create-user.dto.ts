@@ -1,4 +1,5 @@
-import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { IsEmail, IsNotEmpty, IsString, Matches } from 'class-validator';
+import { PasswordValidationHelper } from '../helpers/passwordValidation.helper';
 
 export class CreateUserDto {
   @IsNotEmpty()
@@ -15,5 +16,6 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty()
+  @Matches(PasswordValidationHelper.password)
   password: string;
 }
