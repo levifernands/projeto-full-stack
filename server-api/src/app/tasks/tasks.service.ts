@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { TaskEntity } from './entity/task.entity';
 import { Repository } from 'typeorm';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { UpdateTaskDto } from './dto/update-task.dto';
 
 @Injectable()
 export class TasksService {
@@ -33,7 +34,7 @@ export class TasksService {
     }
   }
 
-  async updateTaskById(id: string, taskData): Promise<TaskEntity> {
+  async updateTaskById(id: string, taskData: UpdateTaskDto): Promise<TaskEntity> {
     try {
       const task = await this.taskRepository.findOneOrFail({ where: { id } });
 

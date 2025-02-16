@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseUUIDPi
 import { TasksService } from './tasks.service';
 import { TaskEntity } from './entity/task.entity';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { UpdateTaskDto } from './dto/update-task.dto';
 
 @Controller('tasks')
 export class TasksController {
@@ -26,7 +27,7 @@ export class TasksController {
   @Put(':id')
   async updateTask(
     @Param('id', new ParseUUIDPipe) id: string,
-    @Body() body,
+    @Body() body: UpdateTaskDto,
   ): Promise<TaskEntity> {
     return await this.tasksService.updateTaskById(id, body);
   }
