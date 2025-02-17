@@ -1,12 +1,12 @@
 import React from "react";
 
-export const Task = () => {
+export const Task = ({task, toggleComplete, deleteTask}) => {
   return (
-    <div className="task">
-      <div className="task-titulo">Tarefa</div>
-      <div className="task-acoes">
-        <button className="task-editar">Editar</button>
-        <button className="task-excluir">Excluir</button>
+    <div className="Task">
+      <div className="TaskTitulo"><p onClick={() => toggleComplete(task.id)} className={`${task.completed ? "concluída" : ""}`} >{task.task}</p></div>
+      <div className="TaskAcoes">
+        <button className="TaskEditar">Editar</button>
+        <button className="TaskExcluir" onClick={() => deleteTask(task.id)}>Excluir</button>
       </div>
     </div>
   )
