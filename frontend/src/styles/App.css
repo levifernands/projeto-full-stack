@@ -1,0 +1,211 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.TaskWrapper {
+  background: white;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.TaskForm {
+  display: flex;
+  gap: 10px;
+}
+
+.task-input {
+  flex: 1;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.task-input:focus {
+  border-color: #6c5ce7;
+  outline: none;
+}
+
+.task-botao {
+  background: #6c5ce7;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.task-botao:hover {
+  background: #5a4fcf;
+}
+
+/* Estilizando as tarefas */
+.Task {
+  background: #fff;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+.Task:hover {
+  transform: scale(1.02);
+}
+
+.TaskTitulo p {
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.TaskTitulo p.concluída {
+  text-decoration: line-through;
+  color: #888;
+}
+
+.TaskAcoes {
+  display: flex;
+  gap: 5px;
+}
+
+.TaskAcoes button {
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+
+.TaskEditar {
+  background: #f39c12;
+  color: white;
+}
+
+.TaskEditar:hover {
+  background: #e67e22;
+}
+
+.TaskExcluir {
+  background: #e74c3c;
+  color: white;
+}
+
+.TaskExcluir:hover {
+  background: #c0392b;
+}
+
+.TaskInput {
+  display: flex;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+.popup-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 600px; /* Aumenta o tamanho */
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+}
+
+.popup-content h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+.popup-input {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.popup-input:focus {
+  border-color: #6a5acd;
+}
+
+.popup-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.save-botao {
+  background: #6a5acd;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.save-botao:hover {
+  background: #5a4fbf;
+}
+
+.close-botao {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.close-botao:hover {
+  background: #c0392b;
+}
