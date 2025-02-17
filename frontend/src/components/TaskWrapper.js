@@ -103,16 +103,11 @@ export const TaskWrapper = () => {
 
   const editTask = async (id, newTask) => {
     const token = localStorage.getItem("token");
-    const taskData = {
-      title: newTask.title,
-      description: newTask.description,
-      status: newTask.status,
-    };
 
     try {
       const response = await axios.put(
         `http://localhost:3000/tasks/${id}`,
-        taskData,
+        { title: newTask },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -120,10 +115,10 @@ export const TaskWrapper = () => {
         }
       );
 
+      const updatedTask = response.data;
+
       setTasks((prevTasks) =>
-        prevTasks.map((task) =>
-          task.id === id ? { ...task, ...response.data } : task
-        )
+        prevTasks.map((task) => (task.id === id ? updatedTask : task))
       );
     } catch (error) {
       setErrorMessage("Erro ao editar tarefa.");
