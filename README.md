@@ -24,11 +24,13 @@ git clone https://github.com/levifernands/projeto-full-stack.git
 cd projeto-full-stack
 ```
 
-## ⚙️ **Configuração do `.env`**
+### 2. ⚙️ **Configuração do `.env`**
 
 O arquivo `.env` contém as configurações essenciais para a execução do projeto, como banco de dados, cache e JWT. Certifique-se de configurar corretamente o arquivo de variáveis de ambiente. Contate-me se precisar do .env.example.
 
-## 🐋 **Inicie os Containers Docker**
+**OBS:** Se a aplicação não conseguir ler o arquivo `.env` na raiz do projeto, tente colocá-lo dentro da pasta **backend**.
+
+### 3. 🐋 **Inicie os Containers Docker**
 
 No diretório raiz do projeto, execute o comando para iniciar os containers Docker:
 
