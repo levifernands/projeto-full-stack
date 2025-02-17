@@ -2,9 +2,17 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TasksModule } from './app/tasks/tasks.module';
+import { UsersModule } from './app/users/users.module';
+import { AuthModule } from './auth/auth.module';
+import { JwtService } from '@nestjs/jwt';
+
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: '../.env',
+      isGlobal: true,
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -20,8 +28,10 @@ import { TasksModule } from './app/tasks/tasks.module';
       }),
     }),
     TasksModule,
+    UsersModule,
+    AuthModule,
   ],
   controllers: [],
-  providers: []
+  providers: [JwtService]
 })
 export class AppModule { }
