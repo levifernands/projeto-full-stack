@@ -17,7 +17,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   app.enableCors({
-    origin: `http://${process.env.FRONT_HOST}:${process.env.FRONT_PORT}`,
+    origin: `http://${process.env.REACT_APP_FRONT_HOST ?? 'localhost'}:${process.env.REACT_APP_PORT ?? '3001'}`,
     methods: 'GET,POST,PUT,DELETE',
     allowedHeaders: 'Content-Type, Authorization',
   });

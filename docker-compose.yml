@@ -9,7 +9,9 @@ services:
     depends_on:
       - server-api
     environment:
-      - REACT_APP_API_URL=http://server-api:3000
+      - REACT_APP_API_URL=http://localhost:3000/tasks 
+      - REACT_APP_FRONT_HOST=localhost
+      - REACT_APP_PORT=3001
     networks:
       - app-network
     volumes:
@@ -24,14 +26,15 @@ services:
       - "3000:3000"
     environment:
       - DB_HOST=db
-      - DB_PORT=3306
-      - DB_USERNAME=root
-      - DB_PASSWORD=root
-      - DB_NAME=tarefas-db
-      - JWT_PRIVATE_KEY=JuZcP8Ium6WhKgWvlNINN4npTU62ITAYhYtHWI0Yqzk=
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - REDIS_TTL=30
+      - DB_PORT=${DB_PORT}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - JWT_PRIVATE_KEY=${JWT_PRIVATE_KEY}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_TTL=${REDIS_TTL}
+      - API_URL=${API_URL}
     depends_on:
       - db
       - redis
