@@ -1,39 +1,43 @@
-import React, { useState } from "react"
-import { TaskForm } from "./TaskForm"
-import { v4 as uuidv4 } from 'uuid';
+import React, { useState } from "react";
+import { TaskForm } from "./TaskForm";
 import { Task } from "./Task";
-uuidv4();
+import { v4 as uuidv4 } from "uuid";
 
 export const TaskWrapper = () => {
-  const [tasks,setTasks]  = useState([])
-
+  const [tasks, setTasks] = useState([]);
 
   const addTask = (task) => {
-    setTasks(prevTasks => [...prevTasks, { id: uuidv4(), task: task, completed: false, isEditing: false }]);
+    setTasks([...tasks, { id: uuidv4(), task: task, completed: false }]);
   };
 
   const toggleComplete = (id) => {
-    setTasks(prevTasks =>
-      prevTasks.map(task => 
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
-    );
+    setTasks(tasks.map(task =>
+      task.id === id ? { ...task, completed: !task.completed } : task
+    ));
   };
 
   const deleteTask = (id) => {
-    setTasks(prevTasks => prevTasks.filter(task => task.id !== id));
+    setTasks(tasks.filter(task => task.id !== id));
   };
+
+  const editTask = (id, newTask) => {
+    setTasks(tasks.map(task =>
+      task.id === id ? { ...task, task: newTask } : task
+    ));
+  };
+
   return (
     <div className="TaskWrapper">
       <TaskForm addTask={addTask} />
-      {tasks.map((task, index) => (
+      {tasks.map((task) => (
         <Task 
-        task={task}
-        key={task.id}
-        toggleComplete={toggleComplete}
-        deleteTask={deleteTask}
+          key={task.id} 
+          task={task} 
+          toggleComplete={toggleComplete} 
+          deleteTask={deleteTask} 
+          editTask={editTask}
         />
       ))}
     </div>
-  )
-}
+  );
+};
