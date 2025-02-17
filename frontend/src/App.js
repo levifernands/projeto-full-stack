@@ -1,12 +1,15 @@
-import React from 'react';
-import './styles/App.css'; 
-import { TaskWrapper } from './components/TaskWrapper';
+import React from "react";
+import "./styles/App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { TaskWrapper } from "./components/TaskWrapper";
+import { LoginPage } from "./components/LoginPage";
+
 const App = () => {
   return (
-    <div className="App">
-      <h1>Minha Lista de Tarefas</h1>
-      <TaskWrapper />
-    </div>
+    <Routes>
+      <Route path="/tarefas" element={<TaskWrapper />} />
+      <Route path="/login" element={<LoginPage />} />
+    </Routes>
   );
 };
 
