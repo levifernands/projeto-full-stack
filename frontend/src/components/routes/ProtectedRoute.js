@@ -7,6 +7,7 @@ const ProtectedRoute = ({ element, ...rest }) => {
   if (!token) {
     return <Navigate to="/" replace />;
   }
+
   return element;
 };
 
