@@ -6,8 +6,13 @@ import { UsersModule } from './app/users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { JwtService } from '@nestjs/jwt';
 
+
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      envFilePath: '../.env',
+      isGlobal: true,
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

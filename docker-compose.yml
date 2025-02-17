@@ -1,0 +1,73 @@
+services:
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    ports:
+      - "3001:3001"
+    depends_on:
+      - server-api
+    environment:
+      - REACT_APP_API_URL=http://localhost:3000/tasks 
+      - REACT_APP_FRONT_HOST=localhost
+      - REACT_APP_PORT=3001
+    networks:
+      - app-network
+    volumes:
+      - ./frontend:/frontend
+    working_dir: /frontend
+
+  server-api:
+    build:
+      context: ./server-api
+    container_name: server-api
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_HOST=db
+      - DB_PORT=${DB_PORT}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - JWT_PRIVATE_KEY=${JWT_PRIVATE_KEY}
+      - REDIS_HOST=${REDIS_HOST}
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_TTL=${REDIS_TTL}
+      - API_URL=${API_URL}
+    depends_on:
+      - db
+      - redis
+    networks:
+      - app-network
+    volumes:
+      - ./server-api:/server-api
+    working_dir: /server-api
+
+  db:
+    image: mysql:8.0
+    container_name: db
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=tarefas-db
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - app-network
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  db_data:
