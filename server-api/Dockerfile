@@ -7,7 +7,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3001
+EXPOSE 3000
 
-# Comando para rodar o React
-CMD ["npm", "start"]
+CMD ["npm", "run", "start:dev"]
