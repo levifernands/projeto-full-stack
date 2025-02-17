@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export const Popup = ({ task, onSave, onClose }) => {
-  const [newText, setNewText] = useState(task.task);
+  const [newText, setNewText] = useState(task.title);
+
+  useEffect(() => {
+    setNewText(task.title);
+  }, [task]);
 
   const handleSave = () => {
     onSave(task.id, newText);
@@ -19,8 +23,12 @@ export const Popup = ({ task, onSave, onClose }) => {
           className="popup-input"
         />
         <div className="popup-buttons">
-          <button onClick={handleSave} className="save-botao">Salvar</button>
-          <button onClick={onClose} className="close-botao">Cancelar</button>
+          <button onClick={handleSave} className="save-botao">
+            Salvar
+          </button>
+          <button onClick={onClose} className="close-botao">
+            Cancelar
+          </button>
         </div>
       </div>
     </div>
