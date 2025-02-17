@@ -1,20 +1,27 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
 
-    if (email === "admin@email.com" && password === "123456") {
-      localStorage.setItem("auth", "true"); 
-      navigate("/");
-    } else {
-      alert("Credenciais inválidas");
+    try {
+      const response = await axios.post("http://localhost:3000/auth/login", {
+        email,
+        password,
+      });
+      const { token } = response.data;
+      localStorage.setItem("token", token);
+
+      navigate("/tarefas");
+    } catch (error) {
+      setErrorMessage("Credenciais inválidas. Tente novamente.");
     }
   };
 
@@ -38,6 +45,7 @@ export const LoginPage = () => {
         />
         <button type="submit">Entrar</button>
       </form>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 };
