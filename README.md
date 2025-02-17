@@ -46,10 +46,9 @@ Este comando irá:
 
 Aqui estão as portas que você deve usar para acessar os diferentes componentes do sistema de lista de tarefas:
 
-- **Frontend (Lista de Tarefas)**: `localhost:3001`
-- **Backend (API)**: `localhost:3000`
-- **Documentação Swagger (para testar os endpoints)**: `localhost:3001/swagger`
-
+- **Frontend (Lista de Tarefas)**: [localhost:3001](http://localhost:3001)
+- **Backend (API)**: [localhost:3000](http://localhost:3000)
+- **Documentação Swagger (para testar os endpoints)**: [localhost:3000/swagger](http://localhost:3000/swagger)
 ---
 
 ## 🧑‍🔧 **Tecnologias Utilizadas**
