@@ -120,7 +120,11 @@ export const TaskWrapper = () => {
         }
       );
 
-      setTasks(tasks.map((task) => (task.id === id ? response.data : task)));
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === id ? { ...task, ...response.data } : task
+        )
+      );
     } catch (error) {
       setErrorMessage("Erro ao editar tarefa.");
       console.error("Erro ao editar tarefa:", error);

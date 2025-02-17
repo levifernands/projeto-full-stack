@@ -10,11 +10,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-height: 100vh;
   height: 100vh;
   padding: 10px;
 }
 
 .TaskWrapper {
+  min-height: 100vh;
+  overflow-y: auto;
   background: white;
   width: 100%;
   max-width: 450px;
