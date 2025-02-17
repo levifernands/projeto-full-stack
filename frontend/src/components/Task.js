@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TaskInput } from "./TaskInput";
+import { Popup } from "./Popup";
 
 export const Task = ({ task, toggleComplete, deleteTask, editTask }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -15,23 +15,16 @@ export const Task = ({ task, toggleComplete, deleteTask, editTask }) => {
         </p>
       </div>
       <div className="TaskAcoes">
-        <button className="TaskEditar" onClick={() => setIsEditing(!isEditing)}>
-          {isEditing ? "Cancelar" : "Editar"}
-        </button>
-        <button className="TaskExcluir" onClick={() => deleteTask(task.id)}>
-          Excluir
-        </button>
+      <button className="TaskEditar" onClick={() => setIsEditing(true)}>Editar</button>
+      <button className="TaskExcluir" onClick={() => deleteTask(task.id)}>Excluir</button>
       </div>
 
       {isEditing && (
-        <TaskInput 
-          initialValue={task.task} 
-          onSubmit={(newTask) => {
-            editTask(task.id, newTask);
-            setIsEditing(false);
-          }}
-          placeholder="Edite sua tarefa..."
-        />
+        <Popup 
+        task={task}
+        onSave={editTask}
+        onClose={() => setIsEditing(false)}
+      />
       )}
     </div>
   );
