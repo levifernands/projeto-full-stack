@@ -28,6 +28,7 @@ export const TaskWrapper = () => {
 
   return (
     <div className="TaskWrapper">
+       <h1>Minha Lista de Tarefas</h1>
       <TaskForm addTask={addTask} />
       {tasks.map((task) => (
         <Task 
